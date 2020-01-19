@@ -14,6 +14,7 @@ const rename =require('gulp-rename');
 const notify =require('gulp-notify');
 const cleanCss = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
+const rigger = require('gulp-rigger');
 
 // const config = {
 //     server: {
@@ -156,9 +157,11 @@ gulp.task('js:build', function(callback) {
 			})
 		}))
 		.pipe( sourcemaps.init() )
-		.pipe(fileinclude({
-			prefix : '@@'
-		}))		
+		// .pipe(fileinclude({
+		// 	prefix : '@@',
+		// 	basepath: '@file'
+		// }))	
+		.pipe(rigger())	
 		.pipe(gulp.dest(path.build.js))
 		.pipe(uglify())		
 		.pipe(rename({suffix: '.min'}))
